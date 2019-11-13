@@ -1,2 +1,4 @@
-# rich_editor_react_native
-富文本编辑器（react-native）
+# 富文本编辑器demo（react-native）
+## 使用
+## 参数
+## 效果图
