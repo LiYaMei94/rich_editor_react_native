@@ -1,32 +1,26 @@
 /*
- * @Author: your name
- * @Date: 2019-11-05 11:18:20
- * @LastEditTime: 2019-11-05 17:50:10
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \react_native_appc:\Users\123\Desktop\top_ten\src\components\richWebView\const.js
+ * @Descripttion: 工具栏操作信息
+ * @version: 
+ * @Author: liyamei
+ * @Date: 2019-11-11 18:46:15
+ * @LastEditors: liyamei
+ * @LastEditTime: 2019-11-13 17:55:20
  */
+
+
 export const actions = {
     content: 'content',
-
     updateHeight: 'UPDATE_HEIGHT',
-
+    fontColor:'fontColor',
+    fontSize:'fontSize',
     setBold: 'bold',
     setItalic: 'italic',
     setUnderline: 'underline',
-    heading1: 'h1',
-    heading2: 'h2',
-    heading3: 'h3',
-    heading4: 'h4',
-    heading5: 'h5',
-    heading6: 'h6',
+    heading:"heading",
     mainbody:'div',
     setParagraph: 'SET_PARAGRAPH',
     removeFormat: 'REMOVE_FORMAT',
-    alignLeft: 'justifyLeft',
-    alignCenter: 'justifyCenter',
-    alignRight: 'justifyRight',
-    alignFull: 'justifyFull',
+    textAlign:'textAlign',
     insertBulletsList: 'unorderedList',
     insertOrderedList: 'orderedList',
     insertLink: 'link',

@@ -1,5 +1,12 @@
+/*
+ * @Descripttion: HTML
+ * @version: 
+ * @Author: liyamei
+ * @Date: 2019-11-11 18:46:15
+ * @LastEditors: liyamei
+ * @LastEditTime: 2019-11-13 17:55:40
+ */
 
-//console.log = function (){ postAction({type: 'LOG', data: Array.prototype.slice.call(arguments)});};
 const HTML = `
 <!DOCTYPE html>
 <html>
@@ -40,7 +47,7 @@ const HTML = `
             return document.queryCommandValue(command);
         };
 
-        var exec = function exec(command) {
+        var exec = function exec(command,value) {
             var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             return document.execCommand(command, false, value);
         };
@@ -52,6 +59,27 @@ const HTML = `
         var editor = null, o_height = 0;
         
         var Actions = {
+            fontColor:{
+                state: function() {
+                    return queryCommandState('foreColor');
+                },
+                result: function(color) {
+                    return exec('foreColor',color);
+                }
+            },
+            fontSize:{
+                state: function() {
+                    return queryCommandState('fontSize');
+                },
+                result: function(size) {
+                    return exec('fontSize',size);
+                }
+            },
+            heading:{
+                result: function(h) {
+                    return exec(formatBlock, '<'+h+'>');
+                }
+            },
             bold: {
                 state: function() {
                     return queryCommandState('bold');
@@ -84,6 +112,7 @@ const HTML = `
                     return exec('strikeThrough');
                 }
             },
+            
             justifyLeft: {
                 state: function() {
                     return queryCommandState('justifyLeft');
@@ -108,7 +137,7 @@ const HTML = `
                     return exec('justifyRight');
                 }
             },
-            h1: {
+            /*h1: {
                 result: function() {
                     return exec(formatBlock, '<h1>');
                 }
@@ -132,7 +161,7 @@ const HTML = `
                 result: function() {
                     return exec(formatBlock, '<h5>');
                 }
-            },
+            },*/
             paragraph: {
                 result: function() {
                     return exec(formatBlock, '<p>');
@@ -256,7 +285,6 @@ const HTML = `
                         activeTools.push(k);
                     }
                 }
-                //console.log('change', activeTools);
                 postAction({type: 'SELECTION_CHANGE', data: activeTools});
                 return true;
             };
@@ -267,7 +295,6 @@ const HTML = `
                 postAction({type: 'SELECTION_CHANGE', data: []});
             });
             addEventListener(content, 'focus', function () {
-                //editor.content.innerHTML = '';//清除默认的文本
                 postAction({type: 'CONTENT_FOCUSED'});
             });
             

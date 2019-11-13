@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 编辑器
+ * @version: 
+ * @Author: liyamei
+ * @Date: 2019-11-11 18:46:15
+ * @LastEditors: liyamei
+ * @LastEditTime: 2019-11-13 16:42:47
+ */
+
 import React, {Component} from 'react';
 import {WebView} from 'react-native-webview';
 import {actions, messages} from './const';
@@ -102,6 +111,10 @@ export default class RichTextEditor extends Component {
     }
 
     _sendAction(type, action, data) {
+        //console.log(type)
+        //console.log(action)
+        //console.log(data)
+
 
         let jsonString = JSON.stringify({type, name: action, data});
         if (this.webviewBridge){

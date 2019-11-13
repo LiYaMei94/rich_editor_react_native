@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "16.9.0",
     "react-native": "0.61.4",
-    "react-native-image-crop-picker": "^0.26.1",
+    "react-native-syan-image-picker": "^0.3.8",
     "react-native-webview": "^7.4.3"
   },
   "devDependencies": {

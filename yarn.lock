@@ -5254,10 +5254,10 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.11.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-is%2Fdownload%2Freact-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha1-uF3+zUitHORp/1WKiCyo6DE5KPo=
 
-react-native-image-crop-picker@^0.26.1:
-  version "0.26.1"
-  resolved "https://registry.npm.taobao.org/react-native-image-crop-picker/download/react-native-image-crop-picker-0.26.1.tgz#3499ff5d4a09c9a9e927eb4f6ff936015ff594f1"
-  integrity sha1-NJn/XUoJyanpJ+tPb/k2AV/1lPE=
+react-native-syan-image-picker@^0.3.8:
+  version "0.3.8"
+  resolved "https://registry.npm.taobao.org/react-native-syan-image-picker/download/react-native-syan-image-picker-0.3.8.tgz#18c39170312ba81aaeface49e663dff30d7f4399"
+  integrity sha1-GMORcDErqBqu+s5J5mPf8w1/Q5k=
 
 react-native-webview@^7.4.3:
   version "7.4.3"
