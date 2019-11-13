@@ -34,4 +34,4 @@ editorIconfont: {
 手机  | $12 | $12 | $12
 导管  | $1| $1| $1
 ## 效果图
-![效果图](https://img-blog.csdnimg.cn/20191113185533317.gif)
+![效果图](src/assets/images/1573641462949.gif)
