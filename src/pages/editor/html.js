@@ -4,7 +4,7 @@
  * @Author: liyamei
  * @Date: 2019-11-12 17:05:53
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-13 18:04:03
+ * @LastEditTime: 2019-11-13 18:32:25
  */
 
 import React from 'react';
@@ -14,6 +14,7 @@ import {
     StyleSheet,
     View,
     Keyboard,
+    ScrollView
 } from 'react-native';
 import { actions } from '../../components/richWebView/const';
 import RichEditor from '../../components/richWebView/RichEditor';
@@ -62,11 +63,13 @@ export default class Editor extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <RichEditor
-                    height={ScreenHeight}
-                    ref={ref => this.richText = ref}
-                    initialContentHTML={initHTML}
-                />
+                <ScrollView>
+                    <RichEditor
+                        height={ScreenHeight-90}
+                        ref={ref => this.richText = ref}
+                        initialContentHTML={initHTML}
+                    />
+                </ScrollView>
                 <RichToolbar
                         getEditor={() => this.richText}
                         onPressAddImage={() => this._onPressAddImage()}
