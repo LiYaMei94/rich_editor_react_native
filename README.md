@@ -131,4 +131,4 @@ textAlign  | PropTypes.array |[{icon:'\ue63d',type:'justifyLeft'}..] |对齐方�
 toolBarBackgroundColor  | PropTypes.string | '#E9E9E9'|操作栏背景颜色
 onPressAddImage  | PropTypes.func|无| 上传图片
 ## 效果图
-![效果图](src/assets/images/1573641462949.gif)
+<img src='src/assets/images/1573641462949.gif'></img>
