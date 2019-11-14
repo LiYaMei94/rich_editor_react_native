@@ -4,7 +4,7 @@
  * @Author: liyamei
  * @Date: 2019-11-11 18:46:15
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-13 17:59:20
+ * @LastEditTime: 2019-11-14 11:39:50
  */
 
 import React, { Component } from 'react';
@@ -55,8 +55,8 @@ export default class RichToolbar extends Component {
         getEditor: PropTypes.func.isRequired,//编辑器
         actions: PropTypes.array,//操作栏
         onPressAddImage: PropTypes.func,//上传图片
-        iconTint: PropTypes.any,//没选中的图标颜色
-        selectedIconTint: PropTypes.any,//选中的图标颜色
+        iconTint: PropTypes.string,//没选中的图标颜色
+        selectedIconTint: PropTypes.string,//选中的图标颜色
         renderAction: PropTypes.func,//图标列表
         iconMap: PropTypes.object,
         fontColorArr: PropTypes.array,//字体颜色的数组
@@ -86,7 +86,10 @@ export default class RichToolbar extends Component {
                 icon:'\ue63e',
                 type:'justifyRight'
             },
-        ]
+        ],
+        iconMap:{
+            
+        }
 
     }
     constructor(props) {

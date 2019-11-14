@@ -4,7 +4,7 @@
  * @Author: liyamei
  * @Date: 2019-11-11 18:46:15
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-13 18:30:33
+ * @LastEditTime: 2019-11-14 11:20:49
  */
 
 import React, {Component} from 'react';
@@ -14,16 +14,20 @@ import {Dimensions, PixelRatio, Platform, StyleSheet, View} from 'react-native';
 import {HTML} from './editor';
 import PropTypes from 'prop-types';
 const PlatformIOS = Platform.OS === 'ios';
-
-export default class RichTextEditor extends Component {
+const Size = Dimensions.get('window');
+const ScreenWidth = Size.width;
+const ScreenHeight = Size.height;
+export default class RichEditor extends Component {
     static propTypes = {
+        height:PropTypes.number,
         initialContentHTML: PropTypes.string,
         editorInitializedCallback: PropTypes.func,
     };
 
     static defaultProps = {
-        contentInset: {},
-        style: {}
+        initialContentHTML:'',
+        height:ScreenHeight,
+        editorInitializedCallback:null
     };
 
     constructor(props) {
@@ -77,17 +81,16 @@ export default class RichTextEditor extends Component {
     };
 
     setWebHeight = (height)=>{
-        console.log(height);
         if (height !== this.state.height){
             this.setState({height});
         }
     };
 
     render() {
-        let {height,style} = this.props;
+        let {height} = this.props;
 
         return (
-            <View style={[style, {height: height}]}>
+            <View style={{height: height,width:'100%'}}>
                 <WebView
                     useWebKit={true}
                     scrollEnabled={false}
@@ -160,8 +163,6 @@ export default class RichTextEditor extends Component {
         that.isInit = true;
         that.setContentHTML(this.props.initialContentHTML);
         that.props.editorInitializedCallback && that.props.editorInitializedCallback();
-
-        
     }
 
     async getContentHtml() {
