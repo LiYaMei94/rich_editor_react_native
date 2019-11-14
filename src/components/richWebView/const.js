@@ -4,32 +4,37 @@
  * @Author: liyamei
  * @Date: 2019-11-11 18:46:15
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-13 17:55:20
+ * @LastEditTime: 2019-11-14 14:14:19
  */
 
 
 export const actions = {
-    content: 'content',
-    updateHeight: 'UPDATE_HEIGHT',
+    setUndo:'undo',
+    insertImage: 'image',
+    insertLink: 'link',
+    insertQuote:"quote",
+    insertBulletsList: 'unorderedList',
+    insertOrderedList: 'orderedList',
     fontColor:'fontColor',
     fontSize:'fontSize',
+    setUnderline: 'underline',
     setBold: 'bold',
     setItalic: 'italic',
-    setUnderline: 'underline',
+    textAlign:'textAlign',
     heading:"heading",
+    setIndent: 'indent',
+    setHiliteColor:'hiliteColor',
+    
+
+    content: 'content',
+    updateHeight: 'UPDATE_HEIGHT',
     mainbody:'div',
     setParagraph: 'SET_PARAGRAPH',
     removeFormat: 'REMOVE_FORMAT',
-    textAlign:'textAlign',
-    insertBulletsList: 'unorderedList',
-    insertOrderedList: 'orderedList',
-    insertLink: 'link',
-    insertImage: 'image',
     setSubscript: 'subscript',
     setSuperscript: 'superscript',
     setStrikethrough: 'strikeThrough',
     setHR: 'horizontalRule',
-    setIndent: 'indent',
     setOutdent: 'outdent',
     setTitlePlaceholder: 'SET_TITLE_PLACEHOLDER',
     setContentPlaceholder: 'SET_CONTENT_PLACEHOLDER',

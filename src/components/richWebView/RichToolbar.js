@@ -4,7 +4,7 @@
  * @Author: liyamei
  * @Date: 2019-11-11 18:46:15
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-14 11:39:50
+ * @LastEditTime: 2019-11-14 14:35:46
  */
 
 import React, { Component } from 'react';
@@ -15,40 +15,44 @@ import PropTypes from 'prop-types';
 
 const ScreenWidth = Dimensions.get("window").width;
 const defaultActions = [
+    actions.setUndo,//撤销
+    actions.insertImage,//图片
+    actions.insertLink,
+    actions.insertBulletsList,//无序列表
+    actions.insertOrderedList,//有序列表
     actions.fontColor,
     actions.fontSize,
-    actions.insertImage,//图片
     actions.setUnderline,//下划线
     actions.setBold,//加粗
     actions.setItalic,//斜线
     actions.textAlign,
     actions.heading,
-    actions.insertBulletsList,//无序列表
-    actions.insertOrderedList,//有序列表
+    actions.setIndent,//缩进
+    actions.setHiliteColor,//背景颜色
+    
 
 ];
 
 function getDefaultIcon() {
     const texts = {};
+    texts[actions.setUndo] = '\ue60b';
+    texts[actions.insertLink] = '\ue66d';
+    texts[actions.insertImage] = '\ue620';
+    texts[actions.insertBulletsList] = '\ue80c';
+    texts[actions.insertOrderedList] = '\ue807';
     texts[actions.fontColor] = '\ue6df';
     texts[actions.fontSize] = '\ue65c';
-    texts[actions.insertImage] = '\ue620';
     texts[actions.setUnderline] = '\ue611';
     texts[actions.setBold] = '\ue720';
     texts[actions.setItalic] = '\ue61a';
     texts[actions.textAlign] = '\ue63d';
     texts[actions.heading] = '\ue65d';
-    texts[actions.insertBulletsList] = '\ue80c';
-    texts[actions.insertOrderedList] = '\ue807';
-
+    texts[actions.setIndent] = '\ue6c9';
+    texts[actions.setHiliteColor] = '\ue6cd';
     return texts;
 }
 
-const textAlignObj={
-    justifyLeft:'\ue63d',
-    justifyCenter:'\ue65b',
-    justifyRight:'\ue63e'
-}
+
 export default class RichToolbar extends Component {
 
     static propTypes = {
@@ -62,6 +66,7 @@ export default class RichToolbar extends Component {
         fontColorArr: PropTypes.array,//字体颜色的数组
         fontSizeArr: PropTypes.array,//字体大小的数组
         headingArr:PropTypes.array,//标题数组
+        fontBGColorArr:PropTypes.array,//字体背景色数组
         textAlign:PropTypes.array,
         toolBarBackgroundColor: PropTypes.string//工具栏背景颜色
     };
@@ -70,6 +75,7 @@ export default class RichToolbar extends Component {
         iconTint: '#666',
         selectedIconTint: '#E64448',
         toolBarBackgroundColor: '#E9E9E9',
+        fontBGColorArr:['#fff', 'red', 'yellow', 'pink', 'skyblue'],
         fontColorArr: ['black', 'red', 'yellow', 'pink', 'skyblue'],
         fontSizeArr: [1, 2, 3, 4, 5, 6, 7],
         headingArr:['h1','h2','h3','h4','h5'],
@@ -104,7 +110,8 @@ export default class RichToolbar extends Component {
             selectFontSize: 0,//字体颜色选中的颜色值
             selectToolName: '',
             selectHeading:'',//标题选中的值
-            selectTextAlign:''
+            selectTextAlign:'',
+            selecteHiliteColor:props.iconTint
         };
     }
 
@@ -171,14 +178,15 @@ export default class RichToolbar extends Component {
      * @memberof RichToolbar
      */
     _getButtonEle(action, selected, icon) {
-        const { selectFontColor } = this.state;
+        const { selectFontColor,selecteHiliteColor } = this.state;
         //console.log(selectFontColor)
         return this.props.renderActionEle ?
             this.props.renderActionEle(action, selected) :
             icon ? <Text
                 style={[styles.editorIconfont,
-                action != 'fontColor' ? { color: selected ? this.props.selectedIconTint : this.props.iconTint }
-                    : { color: selectFontColor }
+                action == 'fontColor' ? { color: selectFontColor }
+                    :action == 'hiliteColor'?{color:selecteHiliteColor}
+                    :{ color: selected ? this.props.selectedIconTint : this.props.iconTint },
                 ]}
             >{icon}</Text> : null;
     }
@@ -193,7 +201,7 @@ export default class RichToolbar extends Component {
      * @memberof RichToolbar
      */
     _modalActionPress(selectToolName,item,index){
-        let {selectFontColor,selectFontSize,selectHeading,selectTextAlign}=this.state;
+        let {selectFontColor,selectFontSize,selectHeading,selectTextAlign,selecteHiliteColor}=this.state;
         if(selectToolName=='fontColor'){
             selectFontColor=item;
         }else if(selectToolName=='fontSize'){
@@ -203,6 +211,8 @@ export default class RichToolbar extends Component {
         }else if(selectToolName=='textAlign'){
             selectTextAlign=item.type;
             selectToolName=item.type;
+        }else if(selectToolName=='hiliteColor'){
+            selecteHiliteColor=item;
         }
         //console.log(selectToolName)
         //console.log(item)
@@ -210,7 +220,8 @@ export default class RichToolbar extends Component {
             selectFontColor:selectFontColor,
             selectFontSize:selectFontSize,
             selectHeading:selectHeading,
-            selectTextAlign:selectTextAlign
+            selectTextAlign:selectTextAlign,
+            selecteHiliteColor:selecteHiliteColor
         },()=>{
             //console.log(selectTextAlign)
             this.state.editor._sendAction(selectToolName, 'result',item);
@@ -225,12 +236,13 @@ export default class RichToolbar extends Component {
      * @memberof RichToolbar
      */
     _modalRenderAction() {
-        const { selectFontSize,selectToolName,selectHeading,selectTextAlign } = this.state;
+        const { selectFontSize,selectToolName,selectHeading,selectTextAlign, } = this.state;
         let tempArr = selectToolName == 'fontColor' ? 
                         this.props.fontColorArr : 
                         selectToolName == 'fontSize' ? this.props.fontSizeArr  : 
                         selectToolName=='heading'?this.props.headingArr:
-                        selectToolName=='textAlign'?this.props.textAlign:[];
+                        selectToolName=='textAlign'?this.props.textAlign:
+                        selectToolName=='hiliteColor'?this.props.fontBGColorArr:[];
         //console.log('selectToolName==='+selectToolName)
         //console.log('selectTextAlign==='+selectTextAlign)
         return (
@@ -242,7 +254,7 @@ export default class RichToolbar extends Component {
                             <TouchableOpacity key={index}
                                 onPress={() => this._modalActionPress(selectToolName,item,index)}
                                 style={[styles.toolBarModalItem, {
-                                    backgroundColor: selectToolName == 'fontColor' ? item : '#fff',
+                                    backgroundColor: selectToolName == 'fontColor'||selectToolName == 'hiliteColor' ? item : '#fff',
                                 }]}>
                                 {
                                     selectToolName == 'fontSize'||selectToolName == 'heading' ? 
@@ -271,7 +283,7 @@ export default class RichToolbar extends Component {
     _defaultRenderAction(action, selected, index) {
         const icon = this._getButtonIcon(action);
         const { toolBarBackgroundColor } = this.props;
-        const { selectToolName } = this.state;
+        const { selectToolName,selecteHiliteColor } = this.state;
         return (
             <View style={styles.toolBarContainer}>
                 <TouchableOpacity
@@ -356,17 +368,21 @@ export default class RichToolbar extends Component {
      */
     _onPress(action) {
         switch (action) {
-            case actions.setBold:
-            case actions.setItalic:
+            case actions.setUndo:
+            case actions.insertLink:
+            case actions.insertQuote:
             case actions.insertBulletsList:
             case actions.insertOrderedList:
             case actions.setUnderline:
-            case actions.setParagraph:
+            case actions.setBold:
+            case actions.setItalic:
+            case actions.setIndent:
+            //case actions.setIndent:
+            /*case actions.setParagraph:
             case actions.setSubscript:
             case actions.setSuperscript:
             case actions.setStrikethrough:
-            case actions.setIndent:
-            case actions.setOutdent:
+            case actions.setOutdent:*/
                 this.state.editor._sendAction(action, "result");
                 break;
             case actions.insertImage:
@@ -410,6 +426,8 @@ const styles = StyleSheet.create({
         alignItems:"center",
         marginRight:17,
         marginTop:20,
-        marginBottom:20
+        marginBottom:20,
+        borderColor:'#eee',
+        borderWidth:1
     }
 });

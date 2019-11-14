@@ -4,7 +4,7 @@
  * @Author: liyamei
  * @Date: 2019-11-11 18:46:15
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-13 17:55:40
+ * @LastEditTime: 2019-11-14 14:34:30
  */
 
 const HTML = `
@@ -59,6 +59,43 @@ const HTML = `
         var editor = null, o_height = 0;
         
         var Actions = {
+            undo: {
+                result: function() {
+                    return exec('undo');
+                }
+            },
+            image: {
+                result: function(url) {
+                    if (url) { exec('insertHTML', "<br><div><img src='"+ url +"'/></div><br>");}
+                }
+            },
+            link: {
+                result: function() {
+                    var url = window.prompt('请输入超链接');
+                    if (url) exec('createLink', url);
+                }
+            },
+            quote: {
+                result: function() {
+                    return exec(formatBlock, '<blockquote>');
+                }
+            },
+            orderedList: {
+                state: function() {
+                    return queryCommandState('insertOrderedList');
+                },
+                result: function() {
+                    return exec('insertOrderedList');
+                }
+            },
+            unorderedList: {
+                state: function() {
+                    return queryCommandState('insertUnorderedList');
+                },
+                result: function() {
+                    return exec('insertUnorderedList');
+                }
+            },
             fontColor:{
                 state: function() {
                     return queryCommandState('foreColor');
@@ -75,9 +112,12 @@ const HTML = `
                     return exec('fontSize',size);
                 }
             },
-            heading:{
-                result: function(h) {
-                    return exec(formatBlock, '<'+h+'>');
+            underline: {
+                state: function() {
+                    return queryCommandState('underline');
+                },
+                result: function() {
+                    return exec('underline');
                 }
             },
             bold: {
@@ -96,23 +136,6 @@ const HTML = `
                     return exec('italic');
                 }
             },
-            underline: {
-                state: function() {
-                    return queryCommandState('underline');
-                },
-                result: function() {
-                    return exec('underline');
-                }
-            },
-            strikethrough: {
-                state: function() {
-                    return queryCommandState('strikeThrough');
-                },
-                result: function() {
-                    return exec('strikeThrough');
-                }
-            },
-            
             justifyLeft: {
                 state: function() {
                     return queryCommandState('justifyLeft');
@@ -137,57 +160,43 @@ const HTML = `
                     return exec('justifyRight');
                 }
             },
-            /*h1: {
-                result: function() {
-                    return exec(formatBlock, '<h1>');
+            heading:{
+                result: function(h) {
+                    return exec(formatBlock, '<'+h+'>');
                 }
             },
-            h2: {
+            indent: {
                 result: function() {
-                    return exec(formatBlock, '<h2>');
+                    return exec('indent');
                 }
             },
-            h3: {
-                result: function() {
-                    return exec(formatBlock, '<h3>');
+            hiliteColor: {
+                state: function() {
+                    return queryCommandState('hiliteColor');
+                },
+                result: function(color) {
+                    return exec('hiliteColor',color);
                 }
             },
-            h4: {
+            
+
+            strikethrough: {
+                state: function() {
+                    return queryCommandState('strikeThrough');
+                },
                 result: function() {
-                    return exec(formatBlock, '<h4>');
+                    return exec('strikeThrough');
                 }
             },
-            h5: {
-                result: function() {
-                    return exec(formatBlock, '<h5>');
-                }
-            },*/
+            
+            
+            
             paragraph: {
                 result: function() {
                     return exec(formatBlock, '<p>');
                 }
             },
-            quote: {
-                result: function() {
-                    return exec(formatBlock, '<blockquote>');
-                }
-            },
-            orderedList: {
-                state: function() {
-                    return queryCommandState('insertOrderedList');
-                },
-                result: function() {
-                    return exec('insertOrderedList');
-                }
-            },
-            unorderedList: {
-                state: function() {
-                    return queryCommandState('insertUnorderedList');
-                },
-                result: function() {
-                    return exec('insertUnorderedList');
-                }
-            },
+            
             
             code: {
                 result: function() {
@@ -199,17 +208,8 @@ const HTML = `
                     return exec('insertHorizontalRule');
                 }
             },
-            link: {
-                result: function() {
-                    var url = window.prompt('Enter the link URL');
-                    if (url) exec('createLink', url);
-                }
-            },
-            image: {
-                result: function(url) {
-                    if (url) { exec('insertHTML', "<br><div><img src='"+ url +"'/></div><br>");}
-                }
-            },
+            
+            
             content: {
                 setHtml: function(html) {
                     editor.content.innerHTML = html;

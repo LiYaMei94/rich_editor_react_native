@@ -4,9 +4,12 @@
  * @Author: liyamei
  * @Date: 2019-11-13 18:40:00
  * @LastEditors: liyamei
- * @LastEditTime: 2019-11-14 11:51:57
+ * @LastEditTime: 2019-11-14 14:42:09
  -->
 # 富文本编辑器demo（react-native）
+
+富文本编辑器demo（react-native）主要功能是字体设置（颜色、大小、下划线、加粗、斜体）、上传图片，对齐方式、标题、插入有序和无序列表等，其他功能可以根据document.execCommand参数说明自行添加。
+
 ## 项目`/src/components/richWebView/`目录下的editor.js文件中使用的document.execCommand和Document.queryCommandState()
 ### document.execCommand
 当一个HTML文档切换到设计模式时，`document`暴露 `execCommand` 方法，该方法允许运行命令来操纵可编辑内容区域的元素。具体使用方法及参数可前往[document.execCommand详情](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand)查看。
@@ -125,6 +128,7 @@ iconTint  |PropTypes.string | '#666'|未选中的图标颜色
 selectedIconTint  | PropTypes.string| '#E64448'| 选中的图标颜色
 iconMap  | PropTypes.object | 无 |图标对象
 fontColorArr  | PropTypes.array| ['black', 'red', 'yellow', 'pink', 'skyblue']| 字体颜色
+fontBGColorArr  | PropTypes.array| ['#fff', 'red', 'yellow', 'pink', 'skyblue']| 字体背景颜色
 fontSizeArr  | PropTypes.array | [1, 2, 3, 4, 5, 6, 7] |字体大小，只能是1到7
 headingArr  | PropTypes.array| ['h1','h2','h3','h4','h5']| 标题
 textAlign  | PropTypes.array |[{icon:'\ue63d',type:'justifyLeft'}..] |对齐方式
